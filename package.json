@@ -1,0 +1,25 @@
+{
+  "name": "adkit",
+  "version": "1.0.0",
+  "description": "This is an agnostic HTML Ad Building framework. It can build 970x250, 300x250 and 300x500 with expand panels. Initially this will be just be a CLI but will later grow into a browser UX/UI product. ",
+  "keywords": [
+    "Ad",
+    "Building",
+    "Ad",
+    "AD",
+    "Build",
+    "Framework",
+    "970x250",
+    "300x250",
+    "300x500",
+    "expand",
+    "panels"
+  ],
+  "license": "MIT",
+  "author": "Larry de Guzman",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
