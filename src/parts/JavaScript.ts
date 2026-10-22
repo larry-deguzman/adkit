@@ -1,13 +1,18 @@
-const JavaScript = () => {
+import { AdObject } from "../types/AdTypes";
+
+const JavaScript = (adObject: AdObject) => {
   return `
   (() => {
+    const clickTAG = adObject.clickTAG;
     const button = document.getElementById("cta");
 
-    button.addEventListener("click", () => {
-      if (window.clickTAG) {
-        window.open(window.clickTAG, "_blank");
-      }
-    });
+    if (button) {
+      button.addEventListener("click", () => {
+        if (clickTAG) {
+          window.open(clickTAG, "_blank");
+        }
+      });
+    }
   })()
 `;
 };

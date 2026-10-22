@@ -20,7 +20,7 @@ export function createAd(adObject: AdObject) {
   const css = CSS(adObject);
   const iframe = iFrame(adObject);
   const html = HTML(adObject);
-  const js = JavaScript();
+  const js = JavaScript(adObject);
 
   fs.writeFileSync(path.join(publicDir, "index.html"), html);
   fs.writeFileSync(path.join(publicDir, "ad.js"), js);
