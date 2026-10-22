@@ -21,7 +21,23 @@ Now once everything is installed you will want to run the dev command:
 ```bash
 npm run dev -- --version # shows the version
 npm run dev -- --help # shows the help menu
+```
+
+This will allow you to use the create command.
+
+```bash
 npm run dev -- create # runs the create command
+```
+
+In order to use the package command you will need to use these commands:
+
+```bash
+npm run build # this builds the node package
+npm link # this will allow you to use the package on your machine
+cd ~/Desktop/Adkit/ # cd to the correct directory
+ls # list out the correct folder
+cd <TO THAT FOLDER>
+adkit package # will package the ad to a folder called public
 ```
 
 ## What I'd like to build

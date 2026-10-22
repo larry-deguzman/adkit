@@ -1,15 +1,13 @@
-import type { AdObject } from "../types/AdTypes.js";
-
-const JavaScript = (adObject: AdObject) => {
+const JavaScript = () => {
   return `
   (() => {
-    const clickTAG = adObject.clickTAG;
+    const clickTAG = window.clickTAG;
     const button = document.getElementById("cta");
 
     if (button) {
       button.addEventListener("click", () => {
-        if (clickTAG) {
-          window.open(clickTAG, "_blank");
+        if (window.clickTAG) {
+          window.open(window.clickTAG, "_blank");
         }
       });
     }

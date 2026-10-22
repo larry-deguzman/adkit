@@ -1,76 +1,119 @@
-import * as readline from "readline";
+#!/usr/bin/env node
+
 import { createAd } from "./utils/createAd.js";
-import { AdObject } from "./types/AdTypes.js";
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-function ask(question: string): Promise<string> {
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      resolve(answer);
-    });
-  });
-}
-
-function translation(num: number) {
-  switch (num) {
-    case 1:
-      return "970x250";
-    case 2:
-      return "300x250";
-    case 3:
-      return "300x500";
-    case 4:
-      return "custom";
-    default:
-      return "unknown";
-  }
-}
+import { packageAd } from "./utils/packageAd.js";
+import type { AdObject } from "./types/AdTypes.js";
 
 async function main() {
-  let customAdSize: string;
+  const [{ Command }, { input, number }] = await Promise.all([
+    import("commander"),
+    import("@inquirer/prompts"),
+  ]);
+  const program = new Command();
 
-  console.log("Welcome to Adkit!");
-  console.log("\n1. 970x250");
-  console.log("2. 300x250");
-  console.log("3. 300x500");
-  console.log("4. Custom size");
+  program
+    .name("adkit")
+    .description("A CLI for building HTML5 advertising creatives")
+    .version("0.1.0");
 
-  const adType = await ask(
-    "Enter the ad type (970x250, 300x250, 300x500) or Custom (4): ",
-  );
-  const adClickTAG = await ask("Enter clickTAG URL: ");
-  const backgroundColor = await ask(
-    "Enter background color (e.g., #f1f5f9 or white): ",
-  );
-  const textColor = await ask("Enter text color (e.g., #1e293b or black): ");
-  const borderColor = await ask("Enter border color (e.g., #e5e7eb or gray): ");
-  // I want to build the ad based on the selected type. I will need to create a function that generates the ad.
-  // build the index that will hold the add, so i need to have a component that generate the index.
+  program
+    .command("create")
+    .description("Create an HTML5 ad creative")
+    .action(async () => {
+      console.log("\nLet's create your ad!\n");
 
-  if (Number(adType) === 4) {
-    const customWidth = await ask("Enter custom width: ");
-    const customHeight: string = await ask("Enter custom height: ");
-    customAdSize = `${customWidth}x${customHeight}`;
-  }
-  const adSize = () => {
-    return customAdSize || translation(Number(adType));
-  };
+      const width = await number({
+        message: "Ad width in pixels:",
+        default: 300,
+        required: true,
+        validate: (value) =>
+          value !== undefined && Number.isInteger(value) && value > 0
+            ? true
+            : "Width must be a positive integer.",
+      });
 
-  const adObject: AdObject = {
-    width: Number(adSize().split("x")[0]),
-    height: Number(adSize().split("x")[1]),
-    clickTAG: adClickTAG,
-    backgroundColor,
-    textColor,
-    borderColor,
-  };
-  createAd(adObject);
+      const height = await number({
+        message: "Ad height in pixels:",
+        default: 250,
+        required: true,
+        validate: (value) =>
+          value !== undefined && Number.isInteger(value) && value > 0
+            ? true
+            : "Height must be a positive integer.",
+      });
 
-  rl.close();
+      const clickTAG = await input({
+        message: "Click-through URL:",
+        validate: (value) => {
+          try {
+            const url = new URL(value);
+            return ["http:", "https:"].includes(url.protocol)
+              ? true
+              : "Enter an HTTP or HTTPS URL.";
+          } catch {
+            return "Enter a valid URL.";
+          }
+        },
+      });
+
+      const backgroundColor = await input({
+        message: "Background color (hex):",
+        default: "#FFFFFF",
+        validate: (value) =>
+          /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value)
+            ? true
+            : "Enter a valid hex color, e.g. #FFFFFF.",
+      });
+
+      const textColor = await input({
+        message: "Text color (hex):",
+        default: "#222222",
+        validate: (value) =>
+          /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value)
+            ? true
+            : "Enter a valid hex color, e.g. #222222.",
+      });
+
+      const borderColor = await input({
+        message: "Border color (hex):",
+        default: "#CCCCCC",
+        validate: (value) =>
+          /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value)
+            ? true
+            : "Enter a valid hex color, e.g. #CCCCCC.",
+      });
+
+      const ad: AdObject = {
+        width,
+        height,
+        clickTAG,
+        backgroundColor,
+        textColor,
+        borderColor,
+      };
+
+      console.log("\nYour ad configuration:");
+      console.log(JSON.stringify(ad, null, 2));
+
+      await createAd(ad);
+    });
+
+  program
+    .command("package")
+    .description(
+      "Minify and inline the JS/CSS referenced by index.html in the current folder",
+    )
+    .action(async () => {
+      try {
+        const outPath = await packageAd(process.cwd());
+        console.log(`Packaged ad created at: ${outPath}`);
+      } catch (err) {
+        console.error((err as Error).message);
+        process.exitCode = 1;
+      }
+    });
+
+  await program.parseAsync(process.argv);
 }
 
 main();

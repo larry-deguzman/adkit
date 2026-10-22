@@ -12,6 +12,9 @@ const HTML = (adObject: AdObject) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>AdKit Creative</title>
       <link rel="stylesheet" href="./ad.css">
+      <script>
+        window.clickTAG = "${clickTAG}";
+      </script>
     </head>
     <body style="margin: 0;">
       <div id="ad" class="ad-container" data-size="${size}" style="width: ${width}px; height: ${height}px; overflow: hidden; background: ${backgroundColor}; color: ${textColor};">

@@ -17,7 +17,7 @@
     "panels"
   ],
   "bin": {
-    "adkit": "dist/home.js"
+    "adkit": "dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,12 +28,12 @@
   },
   "license": "MIT",
   "author": "Larry de Guzman",
-  "main": "src/home.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "node --test",
     "build": "node ./node_modules/typescript/bin/tsc",
-    "dev": "tsx src/home.ts",
-    "start": "node src/home.js"
+    "dev": "tsx src/index.ts",
+    "start": "node src/index.js"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^8.7.4",
-    "commander": "^15.0.0"
+    "commander": "^15.0.0",
+    "esbuild": "^0.28.2"
   },
   "allowScripts": {
     "esbuild@0.28.2": true,
