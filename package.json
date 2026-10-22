@@ -32,7 +32,7 @@
   "scripts": {
     "test": "node --test",
     "build": "node ./node_modules/typescript/bin/tsc",
-    "dev": "npm run build && node dist/home.js",
+    "dev": "tsx src/home.ts",
     "start": "node src/home.js"
   },
   "devDependencies": {

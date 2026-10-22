@@ -8,6 +8,22 @@ The way it works is you can grab this repo, run npm install and then run npm run
 
 It'll ask you a question then you can choose what ad size you want. It will then create the files for you and you can either open /public/index.html or you can open /public/iframe.html.
 
+## How this works
+
+Once you have the repo cloned locally, you'll want to add the following commands:
+
+```bash
+npm install
+```
+
+Now once everything is installed you will want to run the dev command:
+
+```bash
+npm run dev -- --version # shows the version
+npm run dev -- --help # shows the help menu
+npm run dev -- create # runs the create command
+```
+
 ## What I'd like to build
 
 I am attempting to create an ad build framework. Here are a list of the things that it will contain in the MVP.
