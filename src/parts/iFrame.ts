@@ -24,6 +24,7 @@ const iFrame = (adObject: AdObject) => {
         frameborder="0"
         width="${width}px"
         height="${height}px"
+        scrolling="no"
       ></iframe>
       <div>
         <p style="color: black">

@@ -1,9 +1,19 @@
-const JavaScript = () => {
-  return `const button = document.getElementById("cta");
+import { AdObject } from "../types/AdTypes";
 
-button.addEventListener("click", () => {
-  console.log("Ad clicked!");
-});
+const JavaScript = (adObject: AdObject) => {
+  return `
+  (() => {
+    const clickTAG = adObject.clickTAG;
+    const button = document.getElementById("cta");
+
+    if (button) {
+      button.addEventListener("click", () => {
+        if (clickTAG) {
+          window.open(clickTAG, "_blank");
+        }
+      });
+    }
+  })()
 `;
 };
 
