@@ -1,7 +1,6 @@
 import { AdObject } from "../types/AdTypes";
 const CSS = (adObject: AdObject) => {
-  const { size } = adObject;
-  const [width, height] = size.split("x");
+  const { width, height } = adObject;
   return `
     * {
         box-sizing: border-box;
