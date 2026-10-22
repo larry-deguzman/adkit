@@ -42,6 +42,12 @@ async function main() {
   const adType = await ask(
     "Enter the ad type (970x250, 300x250, 300x500) or Custom (4): ",
   );
+  const adClickTAG = await ask("Enter clickTAG URL: ");
+  const backgroundColor = await ask(
+    "Enter background color (e.g., #f1f5f9 or white): ",
+  );
+  const textColor = await ask("Enter text color (e.g., #1e293b or black): ");
+  const borderColor = await ask("Enter border color (e.g., #e5e7eb or gray): ");
   // I want to build the ad based on the selected type. I will need to create a function that generates the ad.
   // build the index that will hold the add, so i need to have a component that generate the index.
 
@@ -57,6 +63,10 @@ async function main() {
   const adObject: AdObject = {
     width: Number(adSize().split("x")[0]),
     height: Number(adSize().split("x")[1]),
+    clickTAG: adClickTAG,
+    backgroundColor,
+    textColor,
+    borderColor,
   };
   createAd(adObject);
 
