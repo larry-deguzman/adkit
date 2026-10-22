@@ -1,4 +1,4 @@
-import { AdObject } from "../types/AdTypes";
+import type { AdObject } from "../types/AdTypes.js";
 
 const JavaScript = (adObject: AdObject) => {
   return `

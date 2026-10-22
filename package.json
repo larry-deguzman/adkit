@@ -1,6 +1,7 @@
 {
   "name": "adkit",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is an agnostic HTML Ad Building framework. It can build 970x250, 300x250 and 300x500 with expand panels. Initially this will be just be a CLI but will later grow into a browser UX/UI product. ",
   "keywords": [
     "Ad",
@@ -15,6 +16,9 @@
     "expand",
     "panels"
   ],
+  "bin": {
+    "adkit": "dist/home.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lawrencedeguzman/Adkit.git"
@@ -24,16 +28,24 @@
   },
   "license": "MIT",
   "author": "Larry de Guzman",
-  "type": "commonjs",
-  "main": "src/index.ts",
+  "main": "src/home.ts",
   "scripts": {
     "test": "node --test",
     "build": "node ./node_modules/typescript/bin/tsc",
-    "dev": "npm run build && node dist/index.js",
-    "start": "node src/index.js"
+    "dev": "npm run build && node dist/home.js",
+    "start": "node src/home.js"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.7.4",
+    "commander": "^15.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true
   }
 }
