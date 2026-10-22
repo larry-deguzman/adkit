@@ -46,3 +46,4 @@ I am attempting to create an ad build framework. Here are a list of the things t
 
 1.  Build out a framework for 300x250, 300x500, 970x250, custom
 2.  Build out a packaging system that will take the css and js compress them both and add them to the index. I will also need to make sure that I can add an assets folder.
+3.  I need to add a script that moves over any folders that are not css or scripts.
