@@ -15,26 +15,48 @@ function ask(question: string): Promise<string> {
   });
 }
 
+function translation(num: number) {
+  switch (num) {
+    case 1:
+      return "970x250";
+    case 2:
+      return "300x250";
+    case 3:
+      return "300x500";
+    case 4:
+      return "custom";
+    default:
+      return "unknown";
+  }
+}
+
 async function main() {
+  let customAdSize: string;
+
   console.log("Welcome to Adkit!");
   console.log("\n1. 970x250");
   console.log("2. 300x250");
   console.log("3. 300x500");
+  console.log("4. Custom size");
 
-  const adType = await ask("Enter the ad type (970x250, 300x250, 300x500): ");
+  const adType = await ask(
+    "Enter the ad type (970x250, 300x250, 300x500) or Custom (4): ",
+  );
   // I want to build the ad based on the selected type. I will need to create a function that generates the ad.
   // build the index that will hold the add, so i need to have a component that generate the index.
-  const adSize =
-    adType === "1"
-      ? "970x250"
-      : adType === "2"
-        ? "300x250"
-        : adType === "3"
-          ? "300x500"
-          : "unknown";
+
+  if (Number(adType) === 4) {
+    const customWidth = await ask("Enter custom width: ");
+    const customHeight: string = await ask("Enter custom height: ");
+    customAdSize = `${customWidth}x${customHeight}`;
+  }
+  const adSize = () => {
+    return customAdSize || translation(Number(adType));
+  };
 
   const adObject: AdObject = {
-    size: adSize,
+    width: Number(adSize().split("x")[0]),
+    height: Number(adSize().split("x")[1]),
   };
   createAd(adObject);
 

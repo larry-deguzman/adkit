@@ -1,8 +1,8 @@
 import { AdObject } from "../types/AdTypes";
 
 const HTML = (adObject: AdObject) => {
-  const { size } = adObject;
-  const [width, height] = size.split("x");
+  const { width, height } = adObject;
+  const size = `${width}x${height}`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

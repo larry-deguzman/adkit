@@ -1,8 +1,7 @@
 import { AdObject } from "../types/AdTypes";
 
 const iFrame = (adObject: AdObject) => {
-  const { size } = adObject;
-  const [width, height] = size.split("x");
+  const { width, height } = adObject;
   return `<!doctype html>
 <html lang="en">
   <head>

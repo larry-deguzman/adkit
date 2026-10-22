@@ -7,7 +7,8 @@ import JavaScript from "../parts/JavaScript";
 import CSS from "../parts/CSS";
 
 export function createAd(adObject: AdObject) {
-  const { size } = adObject;
+  const { width, height } = adObject;
+  const size = `${width}x${height}`;
   console.log(`Creating ad with size: ${size}`);
   const publicDir = path.resolve(__dirname, "../../public");
 

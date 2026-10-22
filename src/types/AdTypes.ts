@@ -1,4 +1,4 @@
 export interface AdObject {
-  size: AdSize;
+  width: number;
+  height: number;
 }
-export type AdSize = "970x250" | "300x250" | "300x500" | "unknown";
